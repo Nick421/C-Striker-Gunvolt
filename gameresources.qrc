@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>img/gunvolt.png</file>
+        <file>img/390.png</file>
+    </qresource>
+    <qresource prefix="/config">
+        <file>config.txt</file>
+    </qresource>
+    <qresource prefix="/music">
+        <file>music/duet.mp3</file>
+        <file>music/epilouge.mp3</file>
+    </qresource>
+</RCC>

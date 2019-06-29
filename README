@@ -1,0 +1,97 @@
+------------------
+README
+------------------
+
+Place config file in config in the same directory as sources files.
+Check the .pro file to see if the config file is added under resources.
+Also check gameresources.qrc if file is added.
+
+------------------
+Config file
+------------------
+
+If there are missing values the default will be used.
+Example format:
+
+FRAMERATE=30                        // default 30
+BACKGROUND=:/img/img/390.png
+DAYDURATION=60000                   // default 60000
+CHARSIZE=normal                     // default normal
+CHARSPRITE=:/img/img/gunvolt.png
+CHARXOFFSET=10                      // default 0
+CHARVELOCITY=10                     // default 3
+CHARANIMATIONFRAMES=10
+BGM=qrc:/music/music/epilouge.mp3   // or duet.mp3 for a weeb option ;)
+BGMVOLUME=50                        // default 50
+
+All other values are customisable but character sprite must follow strict rules for animation.
+
+------------------
+OO design
+------------------
+
+1) We have a base stickman class in which all sizes stickman classes inherit from.
+2) All header files are interfaces and all implementation is in .cpp file.
+3) Use of private for member variables to protect from illegal access to the variables.
+4) Coordinate class even though not inherit by any class is use in background class to provide help
+   in managing co-ordinate on the screen.
+
+------------------
+Design pattern
+------------------
+
+Factory method design pattern.
+Based on the size passed in to the stickmanfactory object.
+It will return concrete product stickman of different sizes.
+This is so that we have an interface for creating stickman object but leave the implementation to concrete classes.
+Even though the only difference is in sizes.
+
+The advantages of this is, we can add more sizes without changing a single line of code in dialog. To extend, simply
+add a new class and modifiy the stickmanfactory to support the new sizes. Another advantage would be, we can add more unique
+functionallity to each stickman sizes other than their scales without touching the factory
+eg. Giant becomes another sprite, tiny has animation change to floating.
+
+------------------
+Extensions
+------------------
+
+1) Sprite animations: in the config, the CHARSPRITE used the path to the spritesheet. The spritesheet needs to be able to divide
+                      to CHARANIMATIONFRAMES specified in the config. eg. the spritesheet's width is 550 and there's 10 frames in
+                      total so each frame width will all have to be 55.
+                      To create a spritesheet head over to https://www.piskelapp.com or draw your own ;)
+
+2) Pause/Resume: Press P for pause and press R to resume.
+
+3) Day/Night Cycle: Background will brighten and darken as time progress. In the config, DAYDURATION is time in milliseconds
+                    it takes to go from day to night to day. To turn off this extension set it to 0;
+
+4) Background music: In the config file, BGM is the path to the sound file. BGMVOLUME is the volume that can be set from
+                     0 (no sound) to 100 (max volume). To check which file type is support head over to Qt documentation.
+
+------------------
+Style
+------------------
+
+https://google.github.io/styleguide/cppguide.html
+
+Google c++ style is adopted with slight variation:
+
+1) All functions are define in .cpp instead of inline even if it is less than 10 lines
+2) For #include order, the Qt library are included first then c++ library then .h files.
+    Order:
+        1) Qt Library
+        2) blank line
+        3) C++ library
+        4) blank line
+        5) .h files
+3) Class yype name starts in lowercase because of MacOS Qt naming issues.
+
+------------------
+Credits
+------------------
+
+http://www.bghq.com/bgs/gba/m/mmz3/390.png for background image.
+https://www.piskelapp.com for editing spritesheet.
+https://www.spriters-resource.com/3ds/azurestrikergunvolt/sheet/68687/ for character spritesheet.
+Azure Striker Gunvolt copyrights by Inti Creates 2017
+Mega Man Zero 3 copyrights by Inti Creates and Capcom 2004
